@@ -1,6 +1,8 @@
-# app
+# Firebase Test App
 
-> Firebase Test
+> A simple Vue app for the frontend.
+> A function (that uses express) for API.
+> Cloud Firestore for database.
 
 ## Commands
 
@@ -93,13 +95,13 @@ create-vue-app app
 Answer the questions like so:
 
 ```
-? What's the name of your new project *app*
-? How would your descripe your superb project *Firebase Test*
-? Add Progressive Web App (PWA) support *Yes*
-? Use default manifest.json and icons for PWA *Yes*
-? Use Tyu(Jest) to run unit tests *Yes*
-? What's your GitHub username *<username>*
-? What's your GitHub email *<email>*
+? What's the name of your new project: app
+? How would your descripe your superb project: Firebase Test
+? Add Progressive Web App (PWA) support: Yes
+? Use default manifest.json and icons for PWA: Yes
+? Use Tyu(Jest) to run unit tests: Yes
+? What's your GitHub username: <username>
+? What's your GitHub email: <email>
 ```
 
 # 5. Update the *Dockerfile* and *docker-compose.yml* file:
