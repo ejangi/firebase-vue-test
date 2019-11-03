@@ -1,7 +1,7 @@
 <template>
   <b-navbar toggleable="lg" type="light">
     <b-container>
-        <b-navbar-brand href="#">Firebase Test</b-navbar-brand>
+        <b-navbar-brand to="/">Firebase Test</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -18,8 +18,8 @@
               <template v-slot:button-content>
                 User
               </template>
-              <b-dropdown-item href="#">Profile</b-dropdown-item>
-              <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+              <b-dropdown-item to="/profile">Profile</b-dropdown-item>
+              <b-dropdown-item to="/signout">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
