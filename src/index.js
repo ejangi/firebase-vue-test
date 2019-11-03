@@ -1,3 +1,6 @@
+import * as firebase from "firebase/app"
+import "firebase/auth"
+import firebaseConfig from './firebase.conf.js'
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 import VueRouter from 'vue-router'
@@ -6,6 +9,8 @@ import Home from './components/Home.vue'
 import Tasks from './components/Tasks.vue'
 import Profile from './components/Profile.vue'
 import '@/sass/main.scss'
+
+firebase.initializeApp(firebaseConfig)
 
 Vue.config.productionTip = false
 
