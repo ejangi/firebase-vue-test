@@ -4,8 +4,28 @@ services:
   app:
     build: 
       context: .
+    networks:
+      - firebase-net
     volumes:
       - .:/usr/src/app
     ports:
       - 4000:4000
+    command: yarn poi
+
+  functions:
+    build: 
+      context: .
+    networks:
+      - firebase-net
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - 5000:5000
+      - 5001:5001
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: "/usr/src/app/service-account-credentials.json"
     command: yarn dev
+
+networks:
+  firebase-net:
+    driver: bridge

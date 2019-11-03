@@ -6,7 +6,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "poi",
+    "poi": "poi",
+    "dev": "firebase serve  --host 0.0.0.0 --only hosting,functions",
     "build": "poi build",
     "report": "poi build --bundle-report",
     "serve": "serve dist --single",
@@ -17,6 +18,7 @@
     "email": "james@ejangi.com"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.4",
     "firebase": "^7.2.3",
