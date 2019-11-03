@@ -15,7 +15,7 @@
             <b-card>
                 <b-card-title>{{ task.title }}</b-card-title>
                 <b-card-text>{{ task.description }}</b-card-text>
-                <b-button :to="'/tasks/' + key + '/complete'" variant="primary">Complete</b-button>
+                <b-button v-on:click="markCompleted(key)" :pressed="task.completed" variant="primary">Complete</b-button>
             </b-card>
             </template>
         </b-card-group>
@@ -46,6 +46,22 @@ export default {
                 this.errored = true
             })
             .finally(() => this.loading = false)
+    },
+    methods: {
+        markCompleted (key) {
+            if (key == undefined) return;
+
+            axios
+                .patch(this.getAPIUri() + '/tasks/' + key + '/complete')
+                .then(response => {
+                    console.log(response)
+                })
+                .catch(error => {
+                    this.errorMessage = error,
+                    this.errored = true
+                })
+                .finally(() => this.loading = false)
+        }
     }
 }
 </script>

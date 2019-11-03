@@ -39,10 +39,21 @@ app.get('/warmup', (request, response) => {
 
 
 app.get('/tasks', (request, response) => {
+    // Following the example from: https://itnext.io/building-a-serverless-restful-api-with-cloud-functions-firestore-and-express-f917a305d4e6
     firebaseHelper.firestore
         .backup(db, tasksCollection)
         .then(data => response.status(200).send(data))
         .catch(error => response.status(400).send(`Cannot get tasks: ${error}`));
+});
+
+
+
+app.patch('/tasks/:key/complete', async (request, response) => {
+    const result = await firebaseHelper.firestore
+        .updateDocument(db, tasksCollection, request.params.key, { 
+            complete: true
+        });
+    response.status(204).send({ saved: result });
 });
 
 
