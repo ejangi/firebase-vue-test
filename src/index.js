@@ -27,6 +27,21 @@ const router = new VueRouter({
   routes // short for `routes: routes`
 })
 
+Vue.mixin({
+  methods: {
+    getNodeEnv() {
+      return process.env.NODE_ENV;
+    },
+    getAPIUri() {
+      if (this.getNodeEnv() == 'production') {
+        return "https://asia-northeast1-fir-test-1091b.cloudfunctions.net/api/v1";
+      } else {
+        return "http://localhost:5001/fir-test-1091b/asia-northeast1/api/v1";
+      }
+    }
+  }
+})
+
 new Vue({
   el: '#app',
   router,

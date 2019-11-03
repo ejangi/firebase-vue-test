@@ -24,6 +24,8 @@ services:
       - 5001:5001
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: "/usr/src/app/service-account-credentials.json"
+      CORS_WHITELIST: "*"
+      FUNCTIONS_REGION: "asia-northeast1"
     command: yarn dev
 
 networks:

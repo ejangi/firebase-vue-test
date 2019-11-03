@@ -3,11 +3,13 @@
         <h1>Tasks</h1>
 
         <b-card-group columns class="d-flex flex-column">
-            <b-card v-for="(task, key, index) in tasks">
+            <template v-for="(task, key, index) in tasks">
+            <b-card>
                 <b-card-title>{{ task.title }}</b-card-title>
                 <b-card-text>{{ task.description }}</b-card-text>
                 <b-button to="/tasks/1/complete" variant="primary">Complete</b-button>
             </b-card>
+            </template>
         </b-card-group>
     </b-container>
 </template>
@@ -26,7 +28,7 @@ export default {
     },
     mounted () {
         axios
-            .get('http://localhost:5001/fir-test-1091b/asia-northeast1/api/v1/tasks')
+            .get(this.getAPIUri() + '/tasks')
             .then(response => {
                 this.tasks = response.data.tasks
             })
