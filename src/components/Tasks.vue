@@ -11,11 +11,11 @@
         </template>
 
         <b-card-group columns class="d-flex flex-column">
-            <template v-for="(task, key, index) in tasks">
+            <template v-for="task in tasks">
             <b-card>
                 <b-card-title>{{ task.title }}</b-card-title>
                 <b-card-text>{{ task.description }}</b-card-text>
-                <b-button v-on:click="markCompleted(key)" :pressed="task.completed" variant="primary">Complete</b-button>
+                <b-button v-on:click="markCompleted(task.key)" :pressed="task.completed" variant="primary">Complete</b-button>
             </b-card>
             </template>
         </b-card-group>
@@ -46,7 +46,9 @@ export default {
                     }
 
                     snapshot.forEach(doc => {
-                        this.tasks.push(doc.data());
+                        let d = doc.data();
+                        d.key = doc.id;
+                        this.tasks.push(d);
                     });
 
                     if (this.tasks.length > 0) {
@@ -62,6 +64,18 @@ export default {
         },
         markCompleted (key) {
             if (key == undefined) return;
+
+            let batch = this.getFirestore().batch();
+            let taskRef = this.getFirestore().collection('tasks').doc(key);
+            batch.set(taskRef, { completed: true });
+
+            return batch.commit().then(function () {
+                        console.log('Finished');
+                    })
+                    .catch(err => {
+                        this.errorMessage = 'Error getting documents: ' + err;
+                        this.errored = true;
+                    });
         }
     }
 }
