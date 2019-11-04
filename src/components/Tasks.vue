@@ -23,8 +23,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
     name: 'tasks',
     data () {
@@ -36,31 +34,34 @@ export default {
         }
     },
     mounted () {
-        axios
-            .get(this.getAPIUri() + '/tasks')
-            .then(response => {
-                this.tasks = response.data.tasks
-            })
-            .catch(error => {
-                this.errorMessage = error,
-                this.errored = true
-            })
-            .finally(() => this.loading = false)
+        this.loadTasks();
     },
     methods: {
+        loadTasks() {
+            let tasksRef = this.getFirestore().collection('tasks');
+            let allTasks = tasksRef.get()
+                .then(snapshot => {
+                    if (this.tasks == null) {
+                        this.tasks = [];
+                    }
+
+                    snapshot.forEach(doc => {
+                        this.tasks.push(doc.data());
+                    });
+
+                    if (this.tasks.length > 0) {
+                        this.loading = false;
+                    } else {
+                        this.tasks = null;
+                    }
+                })
+                .catch(err => {
+                    this.errorMessage = 'Error getting documents: ' + err;
+                    this.errored = true;
+                });
+        },
         markCompleted (key) {
             if (key == undefined) return;
-
-            axios
-                .patch(this.getAPIUri() + '/tasks/' + key + '/complete')
-                .then(response => {
-                    console.log(response)
-                })
-                .catch(error => {
-                    this.errorMessage = error,
-                    this.errored = true
-                })
-                .finally(() => this.loading = false)
         }
     }
 }

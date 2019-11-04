@@ -1,5 +1,6 @@
-import * as firebase from "firebase/app"
-import "firebase/auth"
+import firebase from "firebase/app"
+import 'firebase/firestore'
+// import 'firebase/auth'
 import firebaseConfig from './firebase.conf.js'
 import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
@@ -28,16 +29,16 @@ const router = new VueRouter({
 })
 
 Vue.mixin({
+  data: {
+    db: null
+  },
   methods: {
-    getNodeEnv() {
-      return process.env.NODE_ENV;
-    },
-    getAPIUri() {
-      if (this.getNodeEnv() == 'production') {
-        return "https://asia-northeast1-fir-test-1091b.cloudfunctions.net/api/v1";
-      } else {
-        return "http://localhost:5001/fir-test-1091b/asia-northeast1/api/v1";
+    getFirestore() {
+      if (this.db == null) {
+        this.db = firebase.firestore()
       }
+
+      return this.db;
     }
   }
 })
